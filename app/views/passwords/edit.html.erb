@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Update Password</h3>
+        </div>
+        <div class="card-body">
+          <%= form_with model: current_user, url: password_path, class: "needs-validation", novalidate: true do |form| %>
+            <% if form.object.errors.any? %>
+              <div class="alert alert-danger">
+                <% form.object.errors.full_messages.each do |message| %>
+                  <div><%= message %></div>
+                <% end %>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= form.label :password_challenge, "Current Password", class: "form-label" %>
+              <%= form.password_field :password_challenge, class: "form-control" %>
+              <div class="invalid-feedback">
+                Please enter your current password.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :password, "New Password", class: "form-label" %>
+              <%= form.password_field :password, class: "form-control"  %>
+              <div class="invalid-feedback">
+                Please enter a new password.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :password_confirmation, "Confirm New Password", class: "form-label" %>
+              <%= form.password_field :password_confirmation, class: "form-control" %>
+              <div class="invalid-feedback">
+                Please confirm your new password.
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <%= form.submit "Update Password", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

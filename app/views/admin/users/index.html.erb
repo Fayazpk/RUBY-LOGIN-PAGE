@@ -1,0 +1,58 @@
+<h1 class="text-center my-4">User Management</h1>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success" role="alert">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="alert alert-danger" role="alert">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      
+      <%= link_to 'Users', admin_users_path, class: 'list-group-item list-group-item-action active' %>
+      
+    </div>
+  </div>
+  
+  <div class="col-md-9">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <%= form_with url: admin_users_path, method: :get, local: true do |form| %>
+        <div class="input-group">
+          <%= form.text_field :search, class: 'form-control', placeholder: 'Search by Email' %>
+          <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+      <% end %>
+
+      <%= button_to "Logout", logout_path, method: :delete, class: "btn btn-outline-danger" %>
+    </div>
+
+    <%= link_to 'Add User', new_admin_user_path, class: 'btn btn-success mb-3' %>
+    
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td>
+              <%= link_to 'Edit', edit_admin_user_path(user), class: 'btn btn-warning btn-sm' %>
+              <%= button_to 'Delete', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
